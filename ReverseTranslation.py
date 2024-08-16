@@ -32,12 +32,14 @@ def reverseTranslate(proteinSeq, i=0):
     for x in proteinSeq:
         dnaSeq += ecoli_codon_dict[x][i]
     return dnaSeq
+
+print(reverseTranslate(proteinSequence))
 def checkGCContent():
     pass
 
 def getRepition(dnaSeq):
-    print(dnaSeq[:9])
-
+    #print(dnaSeq[:9])
+    pass
 dnaSeq = reverseTranslate(proteinSequence)
 
 getRepition(dnaSeq)
