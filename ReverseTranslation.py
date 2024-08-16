@@ -32,13 +32,23 @@ def reverseTranslate(proteinSeq, i=0):
     for x in proteinSeq:
         dnaSeq += ecoli_codon_dict[x][i]
     return dnaSeq
+
+#copiolot addition need to test further but is a sliding window algorithm 
+def slidingWindow(dnaSeq, windowSize):
+    windows = []
+    for i in range(len(dnaSeq) - windowSize + 1):
+        window = dnaSeq[i:i + windowSize]
+        windows.append(window)
+    return windows
+
 def checkGCContent():
     pass
 
 def getRepition(dnaSeq):
-    print(dnaSeq[:9])
 
-dnaSeq = reverseTranslate(proteinSequence)
+    pass
 
-getRepition(dnaSeq)
+#dnaSeq = reverseTranslate(proteinSequence)
+
+#getRepition(dnaSeq)
 
