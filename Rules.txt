@@ -1,0 +1,6 @@
+# 1. few/no repeat nt longer than 8 bp 
+# 2. 30 <  GC < 70 for all 12 nt sub seq 
+# 3a. Always use most frequent codon 
+# 3b. Be harmonious as in percentage
+
+# No fragment reptition such as 'AAA AAA AAG AAA AAA AAG' 
