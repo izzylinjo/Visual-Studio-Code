@@ -24,31 +24,39 @@ ecoli_codon_dict = {
 
 proteinSequence = "MATWYLGLPTWYLWCCKLWYTIILTWYGYPWLPHKGYPWFDAAVNGYPWRQQWTYIIL**"
 
-def translate(dnaSeq): 
+def translate(dna_seq): 
     pass 
 
-def reverseTranslate(proteinSeq, i=0):
+def find_suitible_codon():
+
+    pass 
+
+def reverseTranslate(protein_seq, MOST_COMMON_CODON=0):
     dnaSeq = ""
-    for x in proteinSeq:
-        dnaSeq += ecoli_codon_dict[x][i]
+    for amino_acid in protein_seq:
+        dnaSeq += ecoli_codon_dict[amino_acid][MOST_COMMON_CODON]
     return dnaSeq
 
 #copiolot addition need to test further but is a sliding window algorithm 
-def slidingWindow(dnaSeq, windowSize):
-    windows = []
-    for i in range(len(dnaSeq) - windowSize + 1):
-        window = dnaSeq[i:i + windowSize]
-        windows.append(window)
-    return windows
+def get_repeating_fragments(dna_seq, fragmentSize=9):
+    repeating_fragments = []
+    fragments = []
+    for i in range(len(dna_seq) - fragmentSize+ 1):
+        fragment = dna_seq[i:i + fragmentSize]
+        if fragment in fragments:
+            repeating_fragments.append(fragment)
+        fragments.append(fragment)
+    return repeating_fragments
 
-def checkGCContent():
+def check_gc_content():
     pass
 
 def getRepition(dnaSeq):
 
     pass
 
-#dnaSeq = reverseTranslate(proteinSequence)
+dna_sequence = reverseTranslate(proteinSequence)
+print(dna_sequence)
 
-#getRepition(dnaSeq)
-
+fragments = get_repeating_fragments(dna_sequence)
+print(fragments)
