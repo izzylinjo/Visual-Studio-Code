@@ -39,10 +39,8 @@ def construct_dna_fragment(dna_sequence, protein_sequence, dna_position):
     dna_fragment = ""
     for i in range(0, 7, 3):
         dna_fragment += find_suitible_codon(dna_sequence, protein_sequence, dna_position + i)
-
     return dna_fragment
     
-
 def edit_dna_sequence(dna_sequence, protein_sequence, dna_position):
     strand_one = dna_sequence[:dna_position]
     middle_strand = construct_dna_fragment(dna_sequence, protein_sequence, dna_position)
@@ -98,8 +96,6 @@ def count_codon_differences(seq1, seq2):
         if codon1 != codon2:
             differences += 1
     return differences
-
-
 
 def check_gc_content():
     pass
