@@ -39,7 +39,7 @@ def construct_dna_fragment(dna_sequence, protein_sequence, dna_position):
     dna_fragment = ""
     for i in range(0, 7, 3):
         dna_fragment += find_suitible_codon(dna_sequence, protein_sequence, dna_position + i)
-    return dna_fragment
+    return dna_fragment 
     
 def edit_dna_sequence(dna_sequence, protein_sequence, dna_position):
     strand_one = dna_sequence[:dna_position]
@@ -47,18 +47,17 @@ def edit_dna_sequence(dna_sequence, protein_sequence, dna_position):
     strand_two = dna_sequence[dna_position+9:]
     return strand_one + middle_strand + strand_two
 
-def reverseTranslate(protein_seq, MOST_COMMON_CODON=0):
+def reverse_translate(protein_seq, MOST_COMMON_CODON=0):
     dna_seq = ""
     for amino_acid in protein_seq:
         dna_seq += ecoli_codon_dict[amino_acid][MOST_COMMON_CODON]
     return dna_seq
 
-#copiolot addition need to test further but is a sliding window algorithm 
-def get_repeating_fragments(dna_seq, fragmentSize=9):
+def get_repeating_fragments(dna_seq, fragment_size=9):
     fragments = []
     repeats = {}
-    for i in range(len(dna_seq) - fragmentSize+ 1):
-        fragment = dna_seq[i:i + fragmentSize]
+    for i in range(len(dna_seq) - fragment_size+ 1):
+        fragment = dna_seq[i:i + fragment_size]
         if fragment in fragments:
             repeats[fragment] = i 
         fragments.append(fragment)
@@ -82,6 +81,27 @@ def loop_through_edit(dna_sequence, protein_sequence, ordered_positions):
         dna_sequence = edit_dna_sequence(dna_sequence, protein_sequence, position)
     return dna_sequence
 
+def check_gc_content(dna_sequence):
+    return (dna_sequence.count("G") + dna_sequence.count("C"))/len(dna_sequence)
+
+def get_high_gc_fragments(dna_seq, fragment_size=12):
+    fragment_dict = {} 
+    for i in range(len(dna_seq) - fragment_size+ 1):
+        fragment = dna_seq[i:i + fragment_size]
+        if check_gc_content(fragment) > 0.7 or check_gc_content(fragment) < 0.3:
+            fragment_dict[fragment] = i
+    return fragment_dict
+
+def condense_gc_fragments(fragment_dict):
+    condensed_fragments = [] 
+    index = list(fragments.values())
+    fragments = list(fragment_dict.keys())
+
+    return condensed_fragments
+
+
+
+# GOT FROM COPILOT 
 def count_codon_differences(seq1, seq2):
     # Ensure both sequences are of the same length by padding the shorter one with spaces
     max_len = max(len(seq1), len(seq2))
@@ -97,10 +117,7 @@ def count_codon_differences(seq1, seq2):
             differences += 1
     return differences
 
-def check_gc_content():
-    pass
-
-dna_sequence = reverseTranslate(protein_sequence)
+dna_sequence = reverse_translate(protein_sequence)
 fragments = get_repeating_fragments(dna_sequence)
 ordered_positions = position_of_repeats(fragments)
 edited_dna = loop_through_edit(dna_sequence, protein_sequence, ordered_positions)
@@ -109,3 +126,5 @@ codon_differences = count_codon_differences(dna_sequence, edited_dna)
 print(f"Codon Differences: {codon_differences}")
 
 print(edited_dna)
+print(check_gc_content(edited_dna))
+print(get_high_gc_fragments(edited_dna))
